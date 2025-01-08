@@ -43,6 +43,11 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         return earthquakeList.size();
     }
 
+    public void updateEarthquakeList(List<Properties> newEarthquakeList) {
+        this.earthquakeList.clear();
+        this.earthquakeList.addAll(newEarthquakeList);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView magnitudeTextView;

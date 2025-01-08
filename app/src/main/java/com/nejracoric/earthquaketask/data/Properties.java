@@ -1,8 +1,10 @@
 package com.nejracoric.earthquaketask.data;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Properties {
     private double mag;
@@ -24,7 +26,10 @@ public class Properties {
     }
 
     public String getMag() {
-        DecimalFormat df = new DecimalFormat("0.0");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.0", symbols);
+
         return df.format(mag);
     }
 
