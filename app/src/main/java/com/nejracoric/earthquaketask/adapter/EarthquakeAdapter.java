@@ -3,12 +3,11 @@ package com.nejracoric.earthquaketask.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.nejracoric.earthquaketask.R;
+import com.nejracoric.earthquaketask.databinding.EarthquakeItemBinding;
 import com.nejracoric.earthquaketask.data.Properties;
 
 import java.util.List;
@@ -24,18 +23,19 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.earthquake_item, parent, false);
-        return new ViewHolder(view);
+        // Inflate the view using ViewBinding
+        EarthquakeItemBinding binding = EarthquakeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Properties earthquake = earthquakeList.get(position);
-        holder.titleTextView.setText(earthquake.getTitle());
-        holder.magnitudeTextView.setText(earthquake.getMag());
-        holder.placeTextView.setText(earthquake.getPlace());
-        holder.timeTextView.setText(earthquake.getTime());
-        holder.typeTextView.setText(earthquake.getType());
+        holder.binding.title.setText(earthquake.getTitle());
+        holder.binding.mag.setText(earthquake.getMag());
+        holder.binding.location.setText(earthquake.getPlace());
+        holder.binding.time.setText(earthquake.getTime());
+        holder.binding.type.setText(earthquake.getType());
     }
 
     @Override
@@ -46,22 +46,16 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     public void updateEarthquakeList(List<Properties> newEarthquakeList) {
         this.earthquakeList.clear();
         this.earthquakeList.addAll(newEarthquakeList);
+        notifyDataSetChanged(); // Ensure the adapter is notified of data changes
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView magnitudeTextView;
-        TextView placeTextView;
-        TextView timeTextView;
-        TextView typeTextView;
+        // Use ViewBinding to access views
+        EarthquakeItemBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.title);
-            magnitudeTextView = itemView.findViewById(R.id.mag);
-            placeTextView = itemView.findViewById(R.id.location);
-            timeTextView = itemView.findViewById(R.id.time);
-            typeTextView = itemView.findViewById(R.id.type);
+        ViewHolder(@NonNull EarthquakeItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
