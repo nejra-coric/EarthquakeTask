@@ -1,5 +1,7 @@
 package com.nejracoric.earthquaketask.adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,6 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the view using ViewBinding
         EarthquakeItemBinding binding = EarthquakeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
@@ -36,6 +37,14 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         holder.binding.location.setText(earthquake.getPlace());
         holder.binding.time.setText(earthquake.getTime());
         holder.binding.type.setText(earthquake.getType());
+
+        holder.itemView.setOnClickListener( v -> {
+            String url = earthquake.getUrl();
+            if (url != null && !url.isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -46,11 +55,10 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     public void updateEarthquakeList(List<Properties> newEarthquakeList) {
         this.earthquakeList.clear();
         this.earthquakeList.addAll(newEarthquakeList);
-        notifyDataSetChanged(); // Ensure the adapter is notified of data changes
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // Use ViewBinding to access views
         EarthquakeItemBinding binding;
 
         ViewHolder(@NonNull EarthquakeItemBinding binding) {

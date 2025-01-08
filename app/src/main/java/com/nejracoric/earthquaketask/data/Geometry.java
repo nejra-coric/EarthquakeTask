@@ -6,7 +6,6 @@ public class Geometry {
     private String type;
     private List<Double> coordinates;
 
-    // Getters and Setters
     public String getType() {
         return type;
     }

@@ -8,7 +8,6 @@ public class Metadata {
     private String api;
     private int count;
 
-    // Getters and Setters
     public long getGenerated() {
         return generated;
     }

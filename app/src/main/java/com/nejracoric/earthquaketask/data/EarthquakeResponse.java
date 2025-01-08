@@ -8,7 +8,6 @@ public class EarthquakeResponse {
     private List<Feature> features;
     private List<Double> bbox;
 
-    // Getters and Setters
     public String getType() {
         return type;
     }

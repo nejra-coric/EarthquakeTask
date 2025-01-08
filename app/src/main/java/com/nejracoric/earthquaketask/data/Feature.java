@@ -6,7 +6,6 @@ public class Feature {
     private Geometry geometry;
     private String id;
 
-    // Getters and Setters
     public String getType() {
         return type;
     }
