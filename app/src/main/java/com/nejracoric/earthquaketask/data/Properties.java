@@ -1,5 +1,9 @@
 package com.nejracoric.earthquaketask.data;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Properties {
     private double mag;
     private String place;
@@ -9,9 +13,19 @@ public class Properties {
     private String detail;
     private int tsunami;
     private String title;
+    private String type;
 
-    public double getMag() {
-        return mag;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMag() {
+        DecimalFormat df = new DecimalFormat("0.0");
+        return df.format(mag);
     }
 
     public void setMag(double mag) {
@@ -26,8 +40,9 @@ public class Properties {
         this.place = place;
     }
 
-    public long getTime() {
-        return time;
+    public String getTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(new Date(time));
     }
 
     public void setTime(long time) {
